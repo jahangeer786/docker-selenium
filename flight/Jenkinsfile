@@ -8,5 +8,17 @@ pipeline {
                 bat "mvn -f flight/pom.xml clean package -DskipTests"
             }
         }
+
+        stage("Build Image") {
+            steps {
+                bat "docker build -t jkhan1991/selenium ./flight/"
+            }
+        }
+
+        stage("Push Image") {
+                    steps {
+                        bat "docker push jkhan1991/selenium ./flight/"
+                    }
+                }
     }
 }
